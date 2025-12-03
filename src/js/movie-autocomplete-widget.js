@@ -1,8 +1,16 @@
 import React from 'react';
-import { debounce } from 'lodash';
 
-const TMDB_API_KEY = 'YOUR_API_KEY_HERE'; // User needs to replace this
+const TMDB_API_KEY = '565f409b9c46bedc1fc2a9165c7d0666'; // User needs to replace this
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  };
+}
 
 class MovieAutocompleteControl extends React.Component {
     constructor(props) {
