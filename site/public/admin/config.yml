@@ -1,0 +1,56 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "static/uploads"
+public_folder: "/uploads"
+
+collections:
+  # 🎞️ MOVIES COLLECTION (Optional - for reference only)
+  - name: "movies"
+    label: "🎞️ Movies"
+    folder: "content/movies"
+    create: true
+    slug: "{{year}}-{{slug}}"
+    summary: "{{title}} ({{year}})"
+    fields:
+      - {label: "Movie Title", name: "title", widget: "string"}
+      - {label: "Release Year", name: "year", widget: "select", options: ["2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "1990s", "Old"]}
+      - {label: "Movie Director", name: "movie_director", widget: "list"}
+      - {label: "Music Director", name: "music_director", widget: "list"}
+      - {label: "Cast (Actors/Actresses)", name: "actors", widget: "list"}
+      - {label: "Poster Image", name: "thumbnail", widget: "image"}
+      - {label: "Language", name: "language", widget: "select", options: ["Tamil", "Telugu", "Malayalam"], default: "Tamil"}
+
+  # 🎵 RINGTONES COLLECTION - ALL FIELDS IN ONE PLACE
+  - name: "songs"
+    label: "🎵 Ringtones"
+    folder: "content/songs"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      # Basic Info
+      - {label: "Ringtone Title", name: "title", widget: "string", hint: "Name of the song"}
+      - {label: "Audio File", name: "audio_file", widget: "file"}
+      
+      # 1. Movie Details (Grouped for Autocomplete)
+      - label: "Movie Details"
+        name: "movie_details"
+        widget: "movie-autocomplete"
+        year_options: ["2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "1990s", "Old"]
+
+      # 7. Mood / Tone
+      - label: "Mood / Tone"
+        name: "mood"
+        widget: "select"
+        options: 
+          - "Romantic / Love"
+          - "Sad"
+          - "Happy"
+          - "Angry"
+          - "Mass / Heroic"
+          - "Motivational"
+          - "Devotional"
+          - "Instrumental / BGM"
+          - "Funny / Dialogue"
