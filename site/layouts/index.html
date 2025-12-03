@@ -12,7 +12,11 @@
         {{ range first 10 (where .Site.RegularPages "Type" "songs") }}
         <li>
             <a href="{{ .Permalink }}">{{ .Title }}</a>
-            {{ with .Params.movie }} - {{ . }}{{ end }}
+            {{ if .Params.movie_details }}
+                {{ with .Params.movie_details.title }} - {{ . }}{{ end }}
+            {{ else }}
+                {{ with .Params.movie }} - {{ . }}{{ end }}
+            {{ end }}
         </li>
         {{ end }}
     </ul>
