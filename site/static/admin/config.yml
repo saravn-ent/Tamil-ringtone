@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main # or master, check your repo branch name
+  branch: main
 
 media_folder: "static/uploads"
 public_folder: "/uploads"
@@ -12,12 +12,36 @@ collections:
     folder: "content/movies"
     create: true
     slug: "{{year}}-{{slug}}"
+    summary: "{{title}} ({{year}})"
     fields:
       - {label: "Movie Title", name: "title", widget: "string"}
-      - {label: "Release Year", name: "year", widget: "select", options: ["2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "1990s", "Old"]}
-      - {label: "Movie Director", name: "movie_director", widget: "list"}
+      - label: "Release Year"
+        name: "year"
+        widget: "select"
+        options:
+          - "2025"
+          - "2024"
+          - "2023"
+          - "2022"
+          - "2021"
+          - "2020"
+          - "2010s"
+          - "2000s"
+          - "1990s"
+          - "Old"
+      - label: "Movie Director"
+        name: "movie_director"
+        widget: "list"
+        field: {widget: "string"}
       - {label: "Poster Image", name: "thumbnail", widget: "image"}
-      - {label: "Language", name: "language", widget: "select", options: ["Tamil", "Telugu", "Malayalam"], default: "Tamil"}
+      - label: "Language"
+        name: "language"
+        widget: "select"
+        options:
+          - "Tamil"
+          - "Telugu"
+          - "Malayalam"
+        default: "Tamil"
 
   # 🎵 RINGTONES COLLECTION
   - name: "songs"
@@ -25,12 +49,26 @@ collections:
     folder: "content/songs"
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} - {{movie}}"
     fields:
       - {label: "Ringtone Title", name: "title", widget: "string"}
       - {label: "Audio File", name: "audio_file", widget: "file"}
       
       # 1. Year
-      - {label: "Year", name: "year", widget: "select", options: ["2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "1990s", "Old"]}
+      - label: "Year"
+        name: "year"
+        widget: "select"
+        options:
+          - "2025"
+          - "2024"
+          - "2023"
+          - "2022"
+          - "2021"
+          - "2020"
+          - "2010s"
+          - "2000s"
+          - "1990s"
+          - "Old"
 
       # 2. Movie / Album (Relation)
       - label: "Movie"
@@ -38,20 +76,33 @@ collections:
         widget: "relation"
         collection: "movies"
         search_fields: ["title"]
-        value_field: "{{title}}"
-        display_fields: ["title"]
+        value_field: "title"
+        display_fields: ["title", "year"]
+        hint: "Select the movie this song belongs to."
 
       # 3. Movie Director
-      - {label: "Movie Director", name: "movie_director", widget: "list"}
+      - label: "Movie Director"
+        name: "movie_director"
+        widget: "list"
+        field: {widget: "string"}
 
       # 4. Music Director
-      - {label: "Music Director", name: "music_director", widget: "list"}
+      - label: "Music Director"
+        name: "music_director"
+        widget: "list"
+        field: {widget: "string"}
 
       # 5. Actor / Actress
-      - {label: "Actor / Actress", name: "actor", widget: "list"}
+      - label: "Actor / Actress"
+        name: "actor"
+        widget: "list"
+        field: {widget: "string"}
 
       # 6. Singer
-      - {label: "Singer", name: "singer", widget: "list"}
+      - label: "Singer"
+        name: "singer"
+        widget: "list"
+        field: {widget: "string"}
 
       # 7. Mood / Tone
       - label: "Mood / Tone"
