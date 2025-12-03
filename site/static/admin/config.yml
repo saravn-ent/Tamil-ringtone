@@ -6,7 +6,7 @@ media_folder: "static/uploads"
 public_folder: "/uploads"
 
 collections:
-  # 🎞️ MOVIES COLLECTION (Your Blueprint Source 18-21)
+  # 🎞️ MOVIES COLLECTION
   - name: "movies"
     label: "🎞️ Movies"
     folder: "content/movies"
@@ -14,40 +14,56 @@ collections:
     slug: "{{year}}-{{slug}}"
     fields:
       - {label: "Movie Title", name: "title", widget: "string"}
-      - {label: "Release Year", name: "year", widget: "select", options: ["2025", "2024", "2023", "2022", "Old"]}
-      - {label: "Movie Poster", name: "thumbnail", widget: "image"}
+      - {label: "Release Year", name: "year", widget: "select", options: ["2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "1990s", "Old"]}
+      - {label: "Movie Director", name: "movie_director", widget: "list"}
+      - {label: "Poster Image", name: "thumbnail", widget: "image"}
       - {label: "Language", name: "language", widget: "select", options: ["Tamil", "Telugu", "Malayalam"], default: "Tamil"}
 
-  # 🎵 RINGTONES COLLECTION (Your Blueprint Source 14-17)
-  - name: "ringtones"
+  # 🎵 RINGTONES COLLECTION
+  - name: "songs"
     label: "🎵 Ringtones"
-    folder: "content/ringtones"
+    folder: "content/songs"
     create: true
     slug: "{{slug}}"
     fields:
       - {label: "Ringtone Title", name: "title", widget: "string"}
-      - {label: "Audio File", name: "audio_file", widget: "file"} # The download file
+      - {label: "Audio File", name: "audio_file", widget: "file"}
       
-      # RELATIONSHIP: Connects Ringtone to Movie (Source 17)
+      # 1. Year
+      - {label: "Year", name: "year", widget: "select", options: ["2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "1990s", "Old"]}
+
+      # 2. Movie / Album (Relation)
       - label: "Movie"
-        name: "related_movie"
+        name: "movie"
         widget: "relation"
         collection: "movies"
         search_fields: ["title"]
-        value_field: "{{slug}}"
+        value_field: "{{title}}"
         display_fields: ["title"]
 
-      # TAXONOMIES: The Filters (Source 23)
+      # 3. Movie Director
+      - {label: "Movie Director", name: "movie_director", widget: "list"}
+
+      # 4. Music Director
+      - {label: "Music Director", name: "music_director", widget: "list"}
+
+      # 5. Actor / Actress
+      - {label: "Actor / Actress", name: "actor", widget: "list"}
+
+      # 6. Singer
+      - {label: "Singer", name: "singer", widget: "list"}
+
+      # 7. Mood / Tone
       - label: "Mood / Tone"
         name: "mood"
         widget: "select"
-        options: ["Mass/Heroic", "Romantic/Love", "Sad", "Happy", "Funny", "Devotional", "BGM"]
-      
-      - label: "Singer"
-        name: "singer"
-        widget: "list"
-        default: ["Anirudh Ravichander"]
-      
-      - label: "Music Director" 
-        name: "music_director" 
-        widget: "list"
+        options: 
+          - "Romantic / Love"
+          - "Sad"
+          - "Happy"
+          - "Angry"
+          - "Mass / Heroic"
+          - "Motivational"
+          - "Devotional"
+          - "Instrumental / BGM"
+          - "Funny / Dialogue"
