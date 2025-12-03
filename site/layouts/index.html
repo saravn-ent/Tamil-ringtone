@@ -1,13 +1,32 @@
 {{ define "main" }}
+<div class="container">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Params.subtitle }}</p>
 
-{{ partial "jumbotron" (dict "imageUrl" .Params.image "title" .Title "subtitle" .Params.subtitle) }}
+    <div class="content">
+        {{ .Content }}
+    </div>
 
-{{ partial "short-text" .Params.blurb}}
+    <h2>Latest Ringtones</h2>
+    <ul>
+        {{ range first 10 (where .Site.RegularPages "Type" "songs") }}
+        <li>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ with .Params.movie }} - {{ . }}{{ end }}
+        </li>
+        {{ end }}
+    </ul>
 
-{{ partial "2-up" .Params }}
+    <h2>Browse by Movie</h2>
+    <ul>
+        {{ range first 10 (where .Site.RegularPages "Type" "movies") }}
+        <li>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ with .Params.year }} ({{ . }}){{ end }}
+        </li>
+        {{ end }}
+    </ul>
 
-{{ partial "text-and-image" (dict "heading" .Params.values.heading "text" .Params.values.text "buttonText" "Read more" "buttonLink" "/values") }}
-
-{{ partial "blog" . }}
-
+    <p><a href="/admin/">Admin Panel</a></p>
+</div>
 {{ end }}
