@@ -40,11 +40,11 @@ collections:
         widget: "select"
         options: ["2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "1990s", "Old"]
 
-      # 2. Movie / Album Name (Simple Text Input)
+      # 2. Movie / Album Name (TMDB Autocomplete)
       - label: "Movie / Album Name"
         name: "movie"
-        widget: "string"
-        hint: "Type the movie or album name"
+        widget: "movie-autocomplete"
+        hint: "Type movie name - autocomplete from TMDB"
 
       # 3. Movie Director
       - label: "Movie Director"
