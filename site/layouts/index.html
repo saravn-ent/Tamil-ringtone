@@ -1,36 +1,3 @@
 {{ define "main" }}
-<div class="container">
-    <h1>{{ .Title }}</h1>
-    <p>{{ .Params.subtitle }}</p>
-
-    <div class="content">
-        {{ .Content }}
-    </div>
-
-    <h2>Latest Ringtones</h2>
-    <ul>
-        {{ range first 10 (where .Site.RegularPages "Type" "songs") }}
-        <li>
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            {{ if .Params.movie_details }}
-                {{ with .Params.movie_details.title }} - {{ . }}{{ end }}
-            {{ else }}
-                {{ with .Params.movie }} - {{ . }}{{ end }}
-            {{ end }}
-        </li>
-        {{ end }}
-    </ul>
-
-    <h2>Browse by Movie</h2>
-    <ul>
-        {{ range first 10 (where .Site.RegularPages "Type" "movies") }}
-        <li>
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            {{ with .Params.year }} ({{ . }}){{ end }}
-        </li>
-        {{ end }}
-    </ul>
-
-    <p><a href="/admin/">Admin Panel</a></p>
-</div>
+<div id="tamilring-hub-root"></div>
 {{ end }}
