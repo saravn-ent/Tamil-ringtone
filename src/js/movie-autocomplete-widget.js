@@ -116,16 +116,22 @@ class MovieAutocompleteControl extends React.Component {
 
             // Prepare new object data
             const newData = {
-                ...this.getValue(), // Keep existing data (like mood/singer if they were part of this object, but they aren't)
+                ...this.getValue(), // Keep existing data
                 title: movie.title,
                 year: movieDetails.release_date ? new Date(movieDetails.release_date).getFullYear().toString() : '',
                 movie_director: [],
-                actor: []
+                music_director: [],
+                actor: [],
+                singer: []
             };
 
             // Director
             const director = movieDetails.credits?.crew?.find(person => person.job === 'Director');
             if (director) newData.movie_director = [director.name];
+
+            // Music Director (Composer)
+            const composer = movieDetails.credits?.crew?.find(person => person.job === 'Original Music Composer' || person.job === 'Music');
+            if (composer) newData.music_director = [composer.name];
 
             // Cast (top 5)
             if (movieDetails.credits?.cast) {
@@ -225,13 +231,33 @@ class MovieAutocompleteControl extends React.Component {
                     />
                 </div>
 
-                {/* 4. Actors List */}
-                <div>
+                {/* 4. Music Directors List */}
+                <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', marginBottom: '4px', fontWeight: 'bold', fontSize: '12px' }}>Music Directors</label>
+                    <ListInput 
+                        value={value.music_director || []} 
+                        onChange={(val) => this.updateField('music_director', val)}
+                        placeholder="Add music director and press Enter"
+                    />
+                </div>
+
+                {/* 5. Actors List */}
+                <div style={{ marginBottom: '16px' }}>
                     <label style={{ display: 'block', marginBottom: '4px', fontWeight: 'bold', fontSize: '12px' }}>Actors</label>
                     <ListInput 
                         value={value.actor || []} 
                         onChange={(val) => this.updateField('actor', val)}
                         placeholder="Add actor and press Enter"
+                    />
+                </div>
+
+                {/* 6. Singers List */}
+                <div>
+                    <label style={{ display: 'block', marginBottom: '4px', fontWeight: 'bold', fontSize: '12px' }}>Singers</label>
+                    <ListInput 
+                        value={value.singer || []} 
+                        onChange={(val) => this.updateField('singer', val)}
+                        placeholder="Add singer and press Enter"
                     />
                 </div>
             </div>
@@ -245,7 +271,9 @@ const MovieAutocompletePreview = ({ value }) => {
         <div style={{ padding: '10px', border: '1px solid #ccc' }}>
             <h3>{data.title || 'No Movie'} ({data.year})</h3>
             <p><strong>Director:</strong> {data.movie_director?.join(', ')}</p>
+            <p><strong>Music:</strong> {data.music_director?.join(', ')}</p>
             <p><strong>Cast:</strong> {data.actor?.join(', ')}</p>
+            <p><strong>Singers:</strong> {data.singer?.join(', ')}</p>
         </div>
     );
 };

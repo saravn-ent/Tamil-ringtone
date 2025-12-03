@@ -40,18 +40,6 @@ collections:
         widget: "movie-autocomplete"
         year_options: ["2025", "2024", "2023", "2022", "2021", "2020", "2010s", "2000s", "1990s", "Old"]
 
-      # 2. Music Director
-      - label: "Music Director"
-        name: "music_director"
-        widget: "list"
-        hint: "Add music director/composer names"
-
-      # 6. Singer
-      - label: "Singer"
-        name: "singer"
-        widget: "list"
-        hint: "Add singer names"
-
       # 7. Mood / Tone
       - label: "Mood / Tone"
         name: "mood"
